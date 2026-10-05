@@ -1,0 +1,4 @@
+work/**
+verification/**
+*.vsix
+**/__pycache__/**

@@ -1,0 +1,135 @@
+{
+  "name": "local-reader",
+  "displayName": "InfoLens Local Reader",
+  "description": "本机双模型信息密度与语义重点高亮。显式分析当前 Markdown 或代码文件。",
+  "version": "0.8.19",
+  "publisher": "infolens",
+  "license": "Apache-2.0",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "icon": "icon.png",
+  "main": "./extension.cjs",
+  "extensionKind": [
+    "ui"
+  ],
+  "categories": [
+    "Other"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": "limited",
+      "description": "只把用户显式选择的本机文本发送到固定 loopback 服务；不执行工作区代码或配置。"
+    },
+    "virtualWorkspaces": false
+  },
+  "activationEvents": [
+    "onCommand:infolens.analyze",
+    "onCommand:infolens.pause",
+    "onCommand:infolens.configure",
+    "onCommand:infolens.repaint",
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "infolens.analyze",
+        "title": "InfoLens: 分析当前文档"
+      },
+      {
+        "command": "infolens.pause",
+        "title": "InfoLens: 停止当前文档高亮"
+      },
+      {
+        "command": "infolens.configure",
+        "title": "InfoLens: 选择高亮表现"
+      },
+      {
+        "command": "infolens.repaint",
+        "title": "InfoLens: 刷新高亮外观"
+      },
+      {
+        "command": "infolens.workspaceAuto",
+        "title": "InfoLens: 开启 / 关闭当前工作区自动分析"
+      }
+    ],
+    "configuration": {
+      "title": "InfoLens",
+      "properties": {
+        "infolens.port": {
+          "type": "number",
+          "default": 43187,
+          "minimum": 1,
+          "maximum": 65535,
+          "description": "本机服务端口。只连接 127.0.0.1。"
+        },
+        "infolens.mode": {
+          "type": "string",
+          "enum": [
+            "information_density",
+            "semantic_importance",
+            "hybrid"
+          ],
+          "default": "hybrid",
+          "description": "信息密度、语义重点或融合。"
+        },
+        "infolens.style": {
+          "type": "string",
+          "enum": [
+            "background",
+            "foreground",
+            "underline",
+            "fade"
+          ],
+          "default": "background",
+          "description": "工作台外观设置优先；此值仅在尚未读到工作台设置时作为默认。"
+        },
+        "infolens.hue": {
+          "type": "number",
+          "default": 0,
+          "minimum": 0,
+          "maximum": 360,
+          "description": "工作台外观设置优先；此值仅在尚未读到工作台设置时作为默认。"
+        },
+        "infolens.intensity": {
+          "type": "number",
+          "default": 1,
+          "minimum": 0,
+          "maximum": 1.5,
+          "description": "工作台外观设置优先；此值仅在尚未读到工作台设置时作为默认。"
+        },
+        "infolens.alpha": {
+          "type": "number",
+          "default": 0.4,
+          "minimum": 0,
+          "maximum": 1
+        },
+        "infolens.beta": {
+          "type": "number",
+          "default": 0.35,
+          "minimum": 0,
+          "maximum": 1
+        },
+        "infolens.fusion": {
+          "type": "string",
+          "enum": [
+            "semantic_floor",
+            "weighted",
+            "gated"
+          ],
+          "default": "semantic_floor",
+          "enumDescriptions": [
+            "仅提亮排名靠前的重点句，句内密度分层；醒目词目标为纯密度的两倍",
+            "加权加法",
+            "乘法门控"
+          ]
+        },
+        "infolens.reanalyzeOnEdit": {
+          "type": "boolean",
+          "default": false,
+          "description": "仅对本次会话中已显式分析的文档，编辑停止 700ms 后重新分析。默认关闭。"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "repo": "akivet/Mica-v0.1-4B",
+  "revision": "302785ee3143b2a156c8b09a5b9236d88863857d",
+  "files": {
+    "mica/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mica/calibration.py": "0c1a753df2c519c78760f83491cef26e617a7dae8d2bb4506e88752a2bb1d9c5",
+    "mica/codebook.py": "9b87e060dbe5183eed31ab0c2eef97520df60f91a6d8596cc9822d470294560f",
+    "mica/codebook_255.json": "9fa505527fb37fffa4b43ad4ef6d73a92f8f80455c98384734cb540cd16907f4",
+    "mica/direct_backend.py": "91cdc4373632478061c8261abeb1b572c0c5a79903985ecdcc135f5ee61abae1",
+    "mica/native.py": "92b1303bddaab3f56fc4956d2ca3f65c2576f0e871f636ee19df9421aed5d2c8",
+    "mica/typesafe_server.py": "a8a32ce443d64ffebd6bb28fb6ebde35c335d1a5e80432ffe213b0ff7c0f30e9",
+    "calibration.json": "7880dc3344665abc2e41639b6a7d5cf442460857283934edc9a1ce64af6a0a9a",
+    "requirements.txt": "2f03ad337ee751319239747d77adaf4ed7091e8eb234f6b0bd79b1bf08282335",
+    "scripts/build_runtime.sh": "c1738a2ebcd36584f88f4702b0a8607e771601b08e90b0241e3cc52e31cf8cce",
+    "scripts/serve.sh": "6279561e7f27715437b52e889fc545503d5ea77b28a540c7184a98c3c3d8ffe3",
+    "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "NOTICE": "ce0b725c0171063827818bb5c914f7884e20eb2f105c7cd06bcc1e567edca30f"
+  }
+}

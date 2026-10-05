@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>InfoLens · 本地阅读原型</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/infolens.svg">
+  <link rel="alternate icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/app.css">
+  <script type="module" src="/app.mjs"></script>
+</head>
+<body data-theme="dark">
+<div class="app-shell">
+  <aside class="rail" aria-label="主导航">
+    <img class="brand-symbol" src="/assets/infolens.svg" width="38" height="38" alt="InfoLens 阅读透镜">
+    <button class="rail-button active" data-page="reader" aria-label="阅读工作台" title="阅读工作台">▤<span>阅读</span></button>
+    <button class="rail-button" data-page="adapters" aria-label="客户端接入" title="客户端接入">⊞<span>接入</span></button>
+    <button class="rail-button" data-page="appearance" aria-label="各应用显示" title="各应用显示">Aa<span>显示</span></button>
+    <button class="rail-button" data-page="models" aria-label="模型方案" title="模型方案">◈<span>模型</span></button>
+    <button class="rail-button" data-page="settings" aria-label="本地设置" title="本地设置">⚙<span>设置</span></button>
+    <div class="rail-bottom"><span class="privacy-dot"></span><span>LOCAL</span></div>
+  </aside>
+  <div class="workspace">
+    <header class="topbar">
+      <div class="wordmark">InfoLens <span>LOCAL READER</span></div>
+      <span class="demo-badge">交互原型 · 演示评分</span>
+      <div class="top-actions"><button id="theme" class="icon-button" aria-label="切换深浅主题">◐</button><button id="pause" class="quiet-button">暂停高亮</button><span id="connection" class="connection">连接中</span></div>
+    </header>
+    <div id="notice" role="status" aria-live="polite" hidden></div>
+
+    <section id="page-reader" class="page active" aria-label="阅读工作台">
+      <aside class="library">
+        <div class="section-label">阅读工作台</div>
+        <h1>你的阅读空间</h1>
+        <p class="muted">把注意力留给值得读的部分。</p>
+        <button id="import-open" class="primary-button full">＋ 导入文本</button>
+        <input id="file-input" type="file" accept=".txt,.md,text/plain,text/markdown" hidden>
+        <button id="file-open" class="quiet-button full">选择 Markdown / TXT 文件</button>
+        <div class="library-label">示例文档 <span>可切换体验</span></div>
+        <div id="document-list" class="document-list"></div>
+        <div class="local-note"><span class="privacy-dot"></span><div><strong>只在本机处理</strong><p>正文与译文只在内存中处理。可选的加密分值缓存默认关闭；不上传到云端。</p></div></div>
+      </aside>
+
+      <main class="reading-workspace">
+        <div class="reader-toolbar">
+          <div class="mode-switch" role="group" aria-label="高亮模式">
+            <button data-mode="hybrid" aria-pressed="true" class="active">融合</button>
+            <button data-mode="information_density" aria-pressed="false">信息密度</button>
+            <button data-mode="semantic_importance" aria-pressed="false">语义重点</button>
+          </div>
+          <button id="source-preview" class="text-button">原插件样式对照</button>
+          <label class="original-switch"><input id="original" type="checkbox">仅看原文</label>
+        </div>
+        <div class="reading-meta"><span id="document-type">Markdown</span><span id="job-state" aria-live="polite">等待分析</span></div>
+        <article class="paper" aria-label="文档阅读区域">
+          <div class="paper-eyebrow" id="paper-eyebrow">DESIGN NOTE / 001</div>
+          <h2 id="document-title">InfoLens 的本地阅读架构</h2>
+          <div class="paper-info"><span id="document-subtitle"></span><span id="revision-label">快照 1</span></div>
+          <div id="reading-content" class="reading-content"></div>
+          <div class="paper-footer">颜色强弱随分数连续变化。点击词语查看两种信号的贡献；当前为词级演示，尚未接入语言模型。</div>
+        </article>
+        <div class="reader-bottom"><span id="coverage">尚未高亮</span><button id="analyze" class="text-button">重新分析</button><button id="edit" class="text-button">编辑文本</button><button id="export" class="text-button" disabled>导出分析</button></div>
+      </main>
+
+      <aside class="inspector">
+        <div class="section-label">高亮外观</div>
+        <label class="field-label">高亮样式</label>
+        <div class="style-switch" role="group" aria-label="高亮样式">
+          <button data-style="background" aria-pressed="true" class="active"><span class="style-glyph background">Aa</span>背景色</button>
+          <button data-style="foreground" aria-pressed="false"><span class="style-glyph foreground">Aa</span>文字色</button>
+          <button data-style="underline" aria-pressed="false"><span class="style-glyph underline">Aa</span>下划线</button>
+          <button data-style="fade" aria-pressed="false"><span class="style-glyph fade">Aa</span>弱化</button>
+        </div>
+        <p id="style-description" class="control-note">整段文字按词显示背景色，分数越高颜色越明显。</p>
+        <label class="field-label" for="hue">高亮颜色 <output id="color-value">红色</output></label>
+        <div id="color-presets" class="color-presets" role="group" aria-label="预设颜色"></div>
+        <input id="hue" class="hue-slider" type="range" min="0" max="360" step="1" value="0" aria-label="高亮色相">
+        <label class="field-label" for="intensity">高亮强度 <output id="intensity-value">100%</output></label>
+        <input id="intensity" type="range" min="0" max="150" step="5" value="100">
+        <div class="range-ends"><span>原文</span><span>更明显</span></div>
+        <div class="heat-legend"><span>低分</span><div id="heat-legend-bar"></div><span>高分</span></div>
+        <label class="field-label" for="distribution">呈现范围</label>
+        <select id="distribution"><option value="continuous">连续热力 · 全文词语</option><option value="sparse">重点筛选 · 少量片段</option></select>
+        <div id="budget-settings" hidden>
+        <label class="field-label" for="budget">高亮覆盖上限 <output id="budget-value">15%</output></label>
+        <input id="budget" type="range" min="5" max="35" step="1" value="15">
+        <div class="range-ends"><span>更克制</span><span>更多细节</span></div>
+        </div>
+        <details class="analysis-preferences"><summary>分析偏好</summary>
+        <div id="hybrid-settings">
+          <label class="field-label" id="alpha-label" for="alpha" hidden>信息密度权重 <output id="alpha-value">40%</output></label>
+          <input id="alpha" hidden type="range" min="0" max="100" step="5" value="40">
+          <label class="field-label" for="fusion">融合方式</label>
+          <select id="fusion"><option value="semantic_floor">重点句内分层 · 两倍醒目词</option><option value="weighted">加权 · 平衡两种分数</option><option value="gated">乘法 · 聚焦句内信息</option></select>
+        </div>
+        <label class="field-label" for="profile">阅读场景</label>
+        <select id="profile"><option value="markdown">技术文档</option><option value="general">普通文章</option><option value="paper">学术论文</option><option value="code">源代码</option></select>
+        <label class="field-label" for="category">关注类别</label>
+        <select id="category"><option value="all">全部重点</option><option value="constraint">约束</option><option value="risk">风险</option><option value="key_finding">关键结论</option><option value="definition">定义</option><option value="core_logic">核心逻辑</option><option value="boundary_condition">边界条件</option></select>
+        </details>
+
+        <div class="inspector-divider"></div>
+        <div class="section-label">片段透镜</div>
+        <div id="selection-empty" class="empty-inspector">点击正文里的词语，查看分数与文字范围。</div>
+        <div id="selection-detail" hidden>
+          <span id="selection-category" class="category-label"></span>
+          <blockquote id="selection-text"></blockquote>
+          <div class="score-label"><span>信息密度 · 演示</span><strong id="score-s">—</strong></div><div class="score-track"><div id="bar-s" class="score-bar density"></div></div>
+          <div class="score-label"><span>语义重要度 · 演示</span><strong id="score-m">—</strong></div><div class="score-track"><div id="bar-m" class="score-bar semantic"></div></div>
+          <div class="final-score"><span>当前视图分数</span><strong id="score-f">—</strong></div>
+          <p id="selection-explanation" class="muted"></p>
+          <span id="selection-offset" class="offset-label"></span>
+        </div>
+        <div class="engine-note"><span>评分来源</span><strong>确定性规则 · Demo</strong><p>用于验证操作、范围对齐与融合。不代表真实模型准确率或 GPU 性能。</p></div>
+      </aside>
+    </section>
+
+    <section id="page-adapters" class="page feature-page" hidden>
+      <div class="page-heading"><span class="section-label">ONE CORE, EVERY READER</span><h1>客户端接入路线</h1><p>一套分析核心，适配器负责各自应用里的准确高亮。</p></div>
+      <div class="adapter-grid">
+        <div class="adapter-card"><div class="adapter-icon">↗</div><span class="state-pill connected">原型已可用</span><h2>本地阅读面板</h2><p>粘贴文本、导入文件，运行真实的本地任务与高亮交互。</p><button class="quiet-button" data-page="reader">打开阅读工作台</button></div>
+        <div class="adapter-card"><div class="adapter-icon">e</div><span class="state-pill">待实现 · M2</span><h2>Microsoft Edge</h2><p>正文抽取 → Native Messaging → DOM Range 高亮。当前未安装浏览器扩展。</p><span class="capability-note">先支持静态文章与授权站点</span></div>
+        <div class="adapter-card"><div class="adapter-icon">&lt;/&gt;</div><span class="state-pill">待实现 · M2</span><h2>VSCode</h2><p>Markdown 和代码编辑器 Decoration。当前未安装 VSCode 扩展。</p><span class="capability-note">源文件与聊天面板分开处理</span></div>
+        <div class="adapter-card"><div class="adapter-icon">Z</div><span class="state-pill">插件可安装 · v0.8.10</span><h2>Zotero</h2><p>切换标签即时更新、当前阅读器优先；逐句渐进分析全文，专用模型按段原位翻译。安装 XPI 后自动同步工作台显示设置。</p><span class="capability-note">已验证 Zotero 9.0.6；扫描 PDF / OCR 不在首版</span></div>
+        <div class="adapter-card"><div class="adapter-icon">⌘</div><span class="state-pill">显式导入可用</span><h2>Codex 内容</h2><p>复制或保存 Markdown 后导入。Desktop 原正文内高亮仍需验证接口。</p><button class="quiet-button" id="codex-import">导入阅读内容</button></div>
+      </div>
+    </section>
+
+    <section id="page-appearance" class="page feature-page" hidden aria-label="各应用显示设置">
+      <div class="page-heading"><span class="section-label">YOUR READING, YOUR STYLE</span><h1>各应用显示</h1><p>统一管理每个应用的高亮外观。修改后自动保存并直接重绘已分析的内容，无需重新推理。</p></div>
+      <div class="appearance-curve">
+        <div><span class="section-label">分值 → 显示强度</span><h2>两端平缓，中段更醒目</h2><p>平滑 S 曲线让更多中等分值的词显色，80% 以上达到最大显示强度。只改变外观，保留原始分数。</p><small>浅色直线：原线性映射 · 红色曲线：当前显示映射</small></div>
+        <svg id="appearance-curve-chart" viewBox="0 0 300 140" role="img" aria-label="分值显示曲线：两端平缓，中间加强，80% 分值起饱和"></svg>
+      </div>
+      <div class="appearance-toolbar"><span id="appearance-status" role="status">连接本地设置中…</span><div class="appearance-toolbar-actions"><button id="appearance-unify" class="quiet-button" disabled>全部跟随统一样式</button><button id="appearance-reload" class="quiet-button">重新载入设置</button></div></div>
+      <div id="appearance-grid" class="appearance-grid"></div>
+    </section>
+
+    <section id="page-models" class="page feature-page" hidden>
+      <div class="page-heading"><span class="section-label">LOCAL MODEL STRATEGY</span><h1>把显存留给理解</h1><p>目标配置：RTX 4070 Super 12GB。这里展示部署方案，没有加载权重。</p></div>
+      <div class="model-grid">
+        <div class="model-card"><span class="state-pill">未接入</span><h2>Surprisal</h2><h3>Qwen2.5 · 1.5B Base</h3><p>按原文上下文计算下一 token 概率。先用 BF16 做参考基线，再评估量化。</p><dl><dt>窗口起点</dt><dd>1,024 tokens / 256 overlap</dd><dt>纯权重估算</dt><dd>约 3.08GB，额外占用需实测</dd><dt>验收重点</dt><dd>概率 shift、中文/emoji 对齐</dd></dl></div>
+        <div class="model-card"><span class="state-pill">未接入</span><h2>Semantic</h2><h3>Qwen3 · 4B Instruct 2507</h3><p>判断结论、约束、风险与逻辑。采用短窗口结构化输出，优先验证 4-bit。</p><dl><dt>输入 / 输出预算</dt><dd>2,048 / 512 tokens</dd><dt>纯权重估算</dt><dd>4-bit 约 2GB 下界，非运行峰值</dd><dt>验收重点</dt><dd>JSON 有效性、平常措辞的关键句</dd></dl></div>
+        <div class="model-card" id="translation-model-card"><span class="state-pill">未配置</span><h2>Translation</h2><h3>混元 HY-MT1.5 · 1.8B</h3><p>专用翻译模型。PDF 按段处理，优先可见区域，译文原位显示并保留高亮。</p><dl><dt>输入 / 输出预算</dt><dd>2,048 / 1,024 tokens</dd><dt>本地部署</dt><dd>NF4 · 启动预加载 · 串行推理</dd><dt>译文高亮</dt><dd>独立评分译文；公式保留原有字形，切回原文重新定位</dd></dl></div>
+      </div>
+      <div class="strategy-strip"><strong>先实测，再双模型共存</strong><p>串行推理、batch=1、有限预取。OOM 时收缩预算或退到单信号；不自动切到云端。</p><span>当前 GPU 测量：未进行 · 当前运行：CPU 演示规则</span></div>
+    </section>
+
+    <section id="page-settings" class="page feature-page" hidden>
+      <div class="page-heading"><span class="section-label">LOCAL BY DEFAULT</span><h1>本地与会话</h1><p>正文和分析缓存仅保存在内存；各应用的外观偏好保存在本机。</p></div>
+      <div class="settings-list">
+        <div class="settings-row"><div><h2>内存分析缓存</h2><p id="cache-status">等待连接</p></div><button id="clear-cache" class="quiet-button">清除缓存</button></div>
+        <div class="settings-row"><div><h2>页面内控制条</h2><p>体验全局启停入口；此原型不会在其他应用上方悬浮。</p></div><label class="toggle"><input id="floating" type="checkbox" checked>显示控制条</label></div>
+        <div class="settings-row"><div><h2>Windows 系统托盘</h2><p id="host-status">双击 InfoLensHost.exe 启动。托盘菜单可启停后台服务和设置登录自启，默认关闭自启。</p></div><span class="state-pill connected">v0.7 已接入</span></div>
+        <div class="settings-row"><div><h2>后台分析</h2><p id="analysis-control-status">暂停新分析会取消活动与排队任务，已显示的结果保留。</p></div><button id="global-pause" class="quiet-button">暂停新分析</button></div>
+        <div class="settings-row"><div><h2>模型与显存</h2><p id="model-residency">等待读取模型状态</p></div><button id="preload-models" class="quiet-button">预加载模型</button><button id="unload-models" class="quiet-button">卸载模型</button></div>
+        <div class="settings-row"><div><h2>云推理与遥测</h2><p>运行时不访问外部 API、不下载模型、不发送遥测。</p></div><span class="state-pill connected">关闭</span></div>
+        <div class="settings-row"><div><h2>清除会话文档</h2><p>移除手动导入的文档，取消当前任务并清理服务缓存。</p></div><button id="clear-session" class="quiet-button">清除会话</button></div>
+      </div>
+    </section>
+
+    <footer class="statusbar"><span><i class="status-dot"></i><span id="service-state">本地核心连接中</span></span><span id="runtime-state">演示规则 · 无模型推理</span><span>Alpha v0.8.19</span></footer>
+  </div>
+</div>
+<div id="floating-control" class="floating-control"><img class="brand-symbol tiny" src="/assets/infolens.svg" width="24" height="24" alt="InfoLens"><span id="floating-label">融合 · 开启</span><button id="floating-pause" aria-label="暂停或恢复高亮">Ⅱ</button></div>
+<dialog id="reference-dialog">
+  <div class="dialog-heading"><h2>原插件样式对照</h2><button id="reference-close" class="icon-button" aria-label="关闭样式对照">×</button></div>
+  <p class="muted">使用原插件固定的 Qwen3-0.6B-Base 预览分数与 16 档绘制规则，便于对照你的截图。此处使用固定预计算样本；当前工作台的实际评分来源见页面顶部。</p>
+  <div id="reference-grid" class="reference-grid"></div>
+  <p class="muted">固定对照强度 100%，红色。源码：dqy08/InfoLens · Apache-2.0。</p>
+</dialog>
+<dialog id="import-dialog">
+  <form id="import-form"><div class="dialog-heading"><h2 id="dialog-title">导入阅读内容</h2><button id="dialog-close" type="button" class="icon-button" aria-label="关闭">×</button></div><p class="muted">粘贴普通文本或 Markdown。内容仅在本机当前会话处理。</p><label class="field-label" for="import-title">文档标题</label><input id="import-title" type="text" maxlength="100" placeholder="未命名文档"><label class="field-label" for="import-text">正文</label><textarea id="import-text" rows="12" placeholder="粘贴你想阅读的内容…" required></textarea><p id="import-error" role="alert" class="error-text" hidden></p><div class="dialog-actions"><span class="muted">最多 30,000 个 UTF-16 单位 / 128 块</span><button type="submit" class="primary-button">导入并分析</button></div></form>
+</dialog>
+</body>
+</html>

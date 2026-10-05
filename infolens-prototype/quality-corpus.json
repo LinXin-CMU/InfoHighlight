@@ -1,0 +1,427 @@
+{
+  "schemaVersion": 1,
+  "version": "starter-2026-10-05",
+  "provenance": "30 authored synthetic contexts in paired Chinese/English; 60 documents. Not human gold labels or a natural-document release-quality corpus. Paired translations stay in the same split.",
+  "documents": [
+    {
+      "id": "general-01-zh",
+      "profile": "general",
+      "language": "zh",
+      "split": "heldout",
+      "text": "服务每天生成一份摘要。摘要只包含前一天成功完成的任务，失败任务会在独立列表中展示。未完成的任务不能据此判断为失败。"
+    },
+    {
+      "id": "general-01-en",
+      "profile": "general",
+      "language": "en",
+      "split": "heldout",
+      "text": "The service produces a daily summary. It includes only jobs successfully finished the previous day; failures appear in a separate list. Pending jobs must not be interpreted as failures."
+    },
+    {
+      "id": "general-02-zh",
+      "profile": "general",
+      "language": "zh",
+      "split": "development",
+      "text": "队列长度在测试期间下降了。这个变化也可能来自提交量减少，不能单凭队列长度断定处理速度提高。要比较速度，需要同时记录到达率和完成率。"
+    },
+    {
+      "id": "general-02-en",
+      "profile": "general",
+      "language": "en",
+      "split": "development",
+      "text": "The queue became shorter during the test. Fewer incoming requests could explain this change, so queue length alone does not establish faster processing. Compare arrival and completion rates together."
+    },
+    {
+      "id": "general-03-zh",
+      "profile": "general",
+      "language": "zh",
+      "split": "development",
+      "text": "日志里出现了一个很长的产品名称。名称只是样本标识，不是这段文字的结论。真正的限制是所有记录都来自同一台机器。"
+    },
+    {
+      "id": "general-03-en",
+      "profile": "general",
+      "language": "en",
+      "split": "development",
+      "text": "The log contains an unusually long product name. It is merely a sample identifier, not the conclusion. The material limitation is that all records came from one machine."
+    },
+    {
+      "id": "general-04-zh",
+      "profile": "general",
+      "language": "zh",
+      "split": "heldout",
+      "text": "这里把延迟定义为提交请求到收到首个可用结果的时间。总完成时间另行统计。两者不应混在同一列中比较。"
+    },
+    {
+      "id": "general-04-en",
+      "profile": "general",
+      "language": "en",
+      "split": "heldout",
+      "text": "Latency here means the interval from submitting a request to receiving the first usable result. Total completion time is recorded separately. These quantities should not be combined in one comparison column."
+    },
+    {
+      "id": "general-05-zh",
+      "profile": "general",
+      "language": "zh",
+      "split": "development",
+      "text": "大多数页面正常显示。含有隐藏正文副本的页面可能重复提取文本。遇到无法唯一定位的句子时，应保留原样。"
+    },
+    {
+      "id": "general-05-en",
+      "profile": "general",
+      "language": "en",
+      "split": "development",
+      "text": "Most pages display correctly. Pages containing hidden copies of the article may yield duplicate text. If a sentence cannot be uniquely located, leave its appearance unchanged."
+    },
+    {
+      "id": "general-06-zh",
+      "profile": "general",
+      "language": "zh",
+      "split": "development",
+      "text": "这个例子使用蓝色按钮。按钮颜色不会改变任务顺序。只有优先级字段决定哪个排队任务先执行。"
+    },
+    {
+      "id": "general-06-en",
+      "profile": "general",
+      "language": "en",
+      "split": "development",
+      "text": "This example uses a blue button. The button color does not affect execution order. Only the priority field determines which queued job runs first."
+    },
+    {
+      "id": "general-07-zh",
+      "profile": "general",
+      "language": "zh",
+      "split": "heldout",
+      "text": "两份文件看起来一样。它们的换行编码不同，但规范化后的正文相同。缓存复用仍须检查模型版本和上下文。"
+    },
+    {
+      "id": "general-07-en",
+      "profile": "general",
+      "language": "en",
+      "split": "heldout",
+      "text": "The files look identical. Their newline encodings differ, but the normalized text is the same. Cache reuse still requires matching model versions and context."
+    },
+    {
+      "id": "general-08-zh",
+      "profile": "general",
+      "language": "zh",
+      "split": "development",
+      "text": "用户在处理期间切换了页面。旧请求可以继续到安全取消点，但其结果不能绘制到新页面。取消完成前，不应把状态写回运行中。"
+    },
+    {
+      "id": "general-08-en",
+      "profile": "general",
+      "language": "en",
+      "split": "development",
+      "text": "The user switched pages during processing. The old request may reach a safe cancellation point, but its result must not be drawn on the new page. A cancelled request must not return to running status."
+    },
+    {
+      "id": "markdown-09-zh",
+      "profile": "markdown",
+      "language": "zh",
+      "split": "development",
+      "text": "采用块内 UTF-16 偏移。Python 字符索引与这个偏移不总相同，尤其是 emoji。返回范围之前必须显式转换。"
+    },
+    {
+      "id": "markdown-09-en",
+      "profile": "markdown",
+      "language": "en",
+      "split": "development",
+      "text": "Use block-local UTF-16 offsets. Python character indices can differ, especially for emoji. Convert them explicitly before returning ranges."
+    },
+    {
+      "id": "markdown-10-zh",
+      "profile": "markdown",
+      "language": "zh",
+      "split": "heldout",
+      "text": "先发布 Base 的结果，再补充语义分数。语义失败时保留仍有效的 Base 范围。禁止用模拟分数补齐缺失结果。"
+    },
+    {
+      "id": "markdown-10-en",
+      "profile": "markdown",
+      "language": "en",
+      "split": "heldout",
+      "text": "Publish Base results first, then refine them with semantic scores. Preserve valid Base ranges if semantic scoring fails. Never fill missing results with simulated scores."
+    },
+    {
+      "id": "markdown-11-zh",
+      "profile": "markdown",
+      "language": "zh",
+      "split": "development",
+      "text": "当前采用串行 GPU 队列。多模型可以常驻，但不同时推理。这个选择减少峰值争用，并不保证任意长度输入都不会 OOM。"
+    },
+    {
+      "id": "markdown-11-en",
+      "profile": "markdown",
+      "language": "en",
+      "split": "development",
+      "text": "Use a serial GPU queue. Models may stay resident but do not perform inference simultaneously. This reduces peak contention without guaranteeing that arbitrarily long inputs cannot exhaust memory."
+    },
+    {
+      "id": "markdown-12-zh",
+      "profile": "markdown",
+      "language": "zh",
+      "split": "development",
+      "text": "每个应用可以继承统一外观。切换到独立外观后，其他应用的改动不应覆盖它。保存失败必须保留旧配置并显示错误。"
+    },
+    {
+      "id": "markdown-12-en",
+      "profile": "markdown",
+      "language": "en",
+      "split": "development",
+      "text": "An app may inherit the shared appearance. Once it uses independent settings, changes in another app must not overwrite them. Failed saves must preserve the old configuration and display an error."
+    },
+    {
+      "id": "markdown-13-zh",
+      "profile": "markdown",
+      "language": "zh",
+      "split": "heldout",
+      "text": "本文中的安装路径只是开发示例。发布配置不能假设所有用户都使用该路径。路径迁移后还要检查登录启动项。"
+    },
+    {
+      "id": "markdown-13-en",
+      "profile": "markdown",
+      "language": "en",
+      "split": "heldout",
+      "text": "The installation path in this document is only a development example. Release configuration must not assume that every user has that path. Check login startup entries after moving an installation."
+    },
+    {
+      "id": "markdown-14-zh",
+      "profile": "markdown",
+      "language": "zh",
+      "split": "development",
+      "text": "默认不记录正文。诊断只保存耗时、错误码和资源指标。导出诊断之前需要让用户看清包含哪些字段。"
+    },
+    {
+      "id": "markdown-14-en",
+      "profile": "markdown",
+      "language": "en",
+      "split": "development",
+      "text": "Do not record document text by default. Diagnostics retain only timing, error codes, and resource metrics. Show which fields are included before exporting diagnostics."
+    },
+    {
+      "id": "markdown-15-zh",
+      "profile": "markdown",
+      "language": "zh",
+      "split": "development",
+      "text": "字体加载可能改变换行位置。正文字符没有变化时可以重新绑定范围，而不必重新推理。节点替换后仍须验证文本身份。"
+    },
+    {
+      "id": "markdown-15-en",
+      "profile": "markdown",
+      "language": "en",
+      "split": "development",
+      "text": "Font loading can change line wrapping. Unchanged text can be rebound to new ranges without new inference. Verify text identity after node replacement."
+    },
+    {
+      "id": "markdown-16-zh",
+      "profile": "markdown",
+      "language": "zh",
+      "split": "heldout",
+      "text": "没有可用接口就保留显式导入。不得把独立阅读面板当作聊天正文原位高亮。接口调查结果应注明应用版本与证据。"
+    },
+    {
+      "id": "markdown-16-en",
+      "profile": "markdown",
+      "language": "en",
+      "split": "heldout",
+      "text": "Retain explicit import when no supported interface is available. A separate reading panel must not be presented as inline conversation highlighting. Record the app version and evidence in the interface investigation."
+    },
+    {
+      "id": "paper-17-zh",
+      "profile": "paper",
+      "language": "zh",
+      "split": "development",
+      "text": "在这个虚构实验中，研究者比较了两种过滤器。过滤器 A 的平均误差较小，但样本只覆盖低噪声输入。因此结果不能推广到高噪声环境。"
+    },
+    {
+      "id": "paper-17-en",
+      "profile": "paper",
+      "language": "en",
+      "split": "development",
+      "text": "In this fictional experiment, researchers compared two filters. Filter A had lower average error, but the sample included only low-noise inputs. The result therefore cannot be generalized to high-noise conditions."
+    },
+    {
+      "id": "paper-18-zh",
+      "profile": "paper",
+      "language": "zh",
+      "split": "development",
+      "text": "这里的主要结果是测试组更快找到限制条件。两组的总体阅读正确率相近。样本只有十二人，尚不足以证明普遍收益。"
+    },
+    {
+      "id": "paper-18-en",
+      "profile": "paper",
+      "language": "en",
+      "split": "development",
+      "text": "The main finding was faster identification of limitations in the test group. Overall reading accuracy was similar between groups. Twelve participants are insufficient to establish a general benefit."
+    },
+    {
+      "id": "paper-19-zh",
+      "profile": "paper",
+      "language": "zh",
+      "split": "heldout",
+      "text": "作者引用了先前研究的结果。本文自己的实验只检查了字符对齐。不能把被引用的质量结论当作本文验证过的结果。"
+    },
+    {
+      "id": "paper-19-en",
+      "profile": "paper",
+      "language": "en",
+      "split": "heldout",
+      "text": "The authors cite a result from prior work. Their own experiment checks only character alignment. The cited quality claim must not be treated as a result validated by this study."
+    },
+    {
+      "id": "paper-20-zh",
+      "profile": "paper",
+      "language": "zh",
+      "split": "development",
+      "text": "可用率定义为成功处理的段落数除以全部提交段落数。失败段落仍保留在分母中。只计算成功页会高估系统覆盖率。"
+    },
+    {
+      "id": "paper-20-en",
+      "profile": "paper",
+      "language": "en",
+      "split": "development",
+      "text": "Availability is the number of successfully processed paragraphs divided by all submitted paragraphs. Failed paragraphs remain in the denominator. Counting only successful pages would overestimate coverage."
+    },
+    {
+      "id": "paper-21-zh",
+      "profile": "paper",
+      "language": "zh",
+      "split": "development",
+      "text": "两种设置的中位数耗时接近。然而长尾任务在设置 B 中更慢。报告中位数的同时还应报告第九十五百分位。"
+    },
+    {
+      "id": "paper-21-en",
+      "profile": "paper",
+      "language": "en",
+      "split": "development",
+      "text": "Median processing times were similar for the two settings. However, long-tail jobs were slower under setting B. Report the ninety-fifth percentile alongside the median."
+    },
+    {
+      "id": "paper-22-zh",
+      "profile": "paper",
+      "language": "zh",
+      "split": "heldout",
+      "text": "所有参与者都熟悉技术文章。结果可能不适用于第一次阅读这类内容的人。后续评估需要纳入经验不同的读者。"
+    },
+    {
+      "id": "paper-22-en",
+      "profile": "paper",
+      "language": "en",
+      "split": "heldout",
+      "text": "All participants were familiar with technical articles. The results may not apply to first-time readers of this material. Further evaluation should include readers with different experience levels."
+    },
+    {
+      "id": "paper-23-zh",
+      "profile": "paper",
+      "language": "zh",
+      "split": "development",
+      "text": "公式 $Y=\\beta X+u$ 在这里仅作符号示例。译文必须保留变量及条件。保持公式字形完整并不等于翻译在语义上正确。"
+    },
+    {
+      "id": "paper-23-en",
+      "profile": "paper",
+      "language": "en",
+      "split": "development",
+      "text": "The formula $Y=\\beta X+u$ is only a notation example here. Translation must preserve variables and conditions. Intact formula glyphs do not establish semantic translation accuracy."
+    },
+    {
+      "id": "code-24-zh",
+      "profile": "code",
+      "language": "zh",
+      "split": "development",
+      "text": "状态更新必须先检查版本。如果版本已经变化，就返回而不写入界面。否则旧任务可能覆盖新任务的结果。"
+    },
+    {
+      "id": "code-24-en",
+      "profile": "code",
+      "language": "en",
+      "split": "development",
+      "text": "Check the version before changing state. Return without updating the UI if the version has changed. Otherwise, an old job may overwrite the result of a newer job."
+    },
+    {
+      "id": "code-25-zh",
+      "profile": "code",
+      "language": "zh",
+      "split": "heldout",
+      "text": "函数释放自己创建的句柄。外部传入的句柄由调用者管理。不能为了清理方便而关闭其他模块仍在使用的句柄。"
+    },
+    {
+      "id": "code-25-en",
+      "profile": "code",
+      "language": "en",
+      "split": "heldout",
+      "text": "The function releases handles it creates. The caller owns externally supplied handles. Do not close handles still used by another module merely to simplify cleanup."
+    },
+    {
+      "id": "code-26-zh",
+      "profile": "code",
+      "language": "zh",
+      "split": "development",
+      "text": "缓存查找使用完整上下文摘要。命中后重建当前文档的范围。屏幕坐标不会写入缓存，因为滚动和缩放会改变它们。"
+    },
+    {
+      "id": "code-26-en",
+      "profile": "code",
+      "language": "en",
+      "split": "development",
+      "text": "Cache lookup uses a digest of the full context. Rebuild ranges for the current document after a hit. Screen coordinates are not cached because scrolling and zooming change them."
+    },
+    {
+      "id": "code-27-zh",
+      "profile": "code",
+      "language": "zh",
+      "split": "development",
+      "text": "取消标记在发布部分结果之前再次检查。只在计算开始前检查不够，因为任务可能在计算途中被取消。终态不能被随后到达的消息反转。"
+    },
+    {
+      "id": "code-27-en",
+      "profile": "code",
+      "language": "en",
+      "split": "development",
+      "text": "Recheck cancellation before publishing partial results. Checking only before computation is insufficient because cancellation may arrive during computation. Later messages must not reverse terminal status."
+    },
+    {
+      "id": "code-28-zh",
+      "profile": "code",
+      "language": "zh",
+      "split": "heldout",
+      "text": "写配置时先生成临时文件。只有完整写入成功后才原子替换。磁盘写入失败时，不得提前更新内存中的已保存版本。"
+    },
+    {
+      "id": "code-28-en",
+      "profile": "code",
+      "language": "en",
+      "split": "heldout",
+      "text": "Write configuration to a temporary file first. Replace the original atomically only after the full write succeeds. Do not advance the saved in-memory version before a successful disk write."
+    },
+    {
+      "id": "code-29-zh",
+      "profile": "code",
+      "language": "zh",
+      "split": "development",
+      "text": "渲染层使用独立的原文和译文快照。切回原文时必须恢复原文的偏移。把中文范围用于英文文本会产生错位。"
+    },
+    {
+      "id": "code-29-en",
+      "profile": "code",
+      "language": "en",
+      "split": "development",
+      "text": "The renderer owns separate source and translated snapshots. Restore source offsets when returning to the original. Applying Chinese offsets to English text produces misaligned highlights."
+    },
+    {
+      "id": "code-30-zh",
+      "profile": "code",
+      "language": "zh",
+      "split": "development",
+      "text": "访问数组之前检查索引上限。最后一个元素允许读取，但等于数组长度的索引不允许。边界条件不应只在正常路径测试。"
+    },
+    {
+      "id": "code-30-en",
+      "profile": "code",
+      "language": "en",
+      "split": "development",
+      "text": "Check the index bound before accessing the array. The final element is readable, but an index equal to the array length is not. Test boundary conditions beyond the normal execution path."
+    }
+  ]
+}

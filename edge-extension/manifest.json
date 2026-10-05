@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "name": "InfoLens Local Reader",
+  "version": "0.8.19",
+  "description": "Local GPU information highlights. No cloud fallback.",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA9AVGji0IaSoPe8LOURG9hL4xWAowVoT7PeRUkAtbkHjK2JcYAdt5udMAEzebjWkiMddin2HFRAJk+b71jTE504OJ8EjneZGMMlr8q1hYNhvbTnmV2krktU/kOdjTiqQV6+vB73JcT8wp0jAOD9pf09PXBRAfbYqrcyhWgBeCe63DTVuLjx8gwvGHYbXMnl2appMDTjAdHp96FR/B1OQetVcYGNPDo3cyVkljxQSzsE6x1EOtn7JBr+Wv7wLtaPcn+FYgZo5wUB9twjVItI6tZoZ+1SFVogDn9+/d93agIDAJaFVLFJq96THShscnVSLNP38Rau8YYXVRgncER6bweQIDAQAB",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "nativeMessaging",
+    "storage"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png"
+    },
+    "default_popup": "popup.html",
+    "default_title": "InfoLens Local"
+  },
+  "minimum_chrome_version": "106",
+  "optional_host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ]
+}

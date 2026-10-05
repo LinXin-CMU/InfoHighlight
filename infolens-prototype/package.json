@@ -1,0 +1,15 @@
+{
+  "name": "infolens-local-reader-prototype",
+  "version": "0.8.19",
+  "private": true,
+  "type": "module",
+  "description": "InfoLens local Base GPU scoring and native browser highlight Alpha.",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node server.mjs",
+    "real": "node real-launcher.mjs",
+    "test": "node --test"
+  }
+}

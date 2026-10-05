@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+  "name": "InfoLens Local Reader",
+  "version": "0.8.19",
+  "description": "可见页绘制与布局缓存、原位译文逐词评分、全文渐进高亮与本地专用翻译。",
+  "author": "InfoLens",
+  "icons": {
+    "48": "icon48.png",
+    "96": "icon96.png"
+  },
+  "applications": {
+    "zotero": {
+      "id": "infolens-local-reader@infolens.local",
+      "update_url": "https://127.0.0.1:43187/zotero-updates.json",
+      "strict_min_version": "9.0.6",
+      "strict_max_version": "9.0.*"
+    }
+  }
+}

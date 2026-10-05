@@ -1,0 +1,7 @@
+body{font:13px "Segoe UI","Microsoft YaHei",sans-serif;width:290px;margin:0;padding:20px;background:#29292b;color:#eee}h1{font-size:19px;margin:0 0 8px}p,small{font-size:11px;color:#aaa;line-height:1.7}button,select{font:inherit;width:100%;padding:10px;border-radius:6px;border:1px solid #555;background:#343436;color:inherit;margin:6px 0}#analyze{background:#c96a68;border-color:#c96a68}label{display:block;margin-top:18px}input{width:100%;accent-color:#ff4740}output{float:right}#status{border-top:1px solid #555;margin:18px 0 12px;padding-top:15px;line-height:1.7}
+
+#colors{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:10px 0}#colors button{width:25px;height:25px;border-radius:50%;padding:0;margin:0;border:2px solid #555;justify-self:center}#colors button[aria-pressed="true"]{outline:2px solid #eee;outline-offset:3px}#hue{background:linear-gradient(to right,#f44,#ff4,#4f4,#4ff,#44f,#f4f,#f44)}
+
+h1{display:flex;align-items:center;gap:10px}h1 img{display:block;flex-shrink:0}
+
+[hidden]{display:none!important}#status{margin:8px 0;padding:10px;border:1px solid #555;border-radius:6px;min-height:38px;background:#202022;font-size:12px;overflow-wrap:anywhere}#status[data-error="true"]{border-color:#db8d8a;color:#ffc6c2}button:disabled{opacity:.7;cursor:progress}#mode-note{margin:4px 0 0}

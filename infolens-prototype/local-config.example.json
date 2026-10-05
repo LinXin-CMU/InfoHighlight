@@ -1,0 +1,14 @@
+{
+  "python": "C:/path/to/venv/Scripts/python.exe",
+  "modelPath": "C:/path/to/models/Qwen2.5-1.5B",
+  "translationModelPath": "C:/path/to/models/HY-MT1.5-1.8B",
+  "port": 43187,
+  "mica": {
+    "python": "C:/path/to/mica-venv/Scripts/python.exe",
+    "weights": "C:/path/to/mica-q5",
+    "runtime": "C:/path/to/llama-cpp-cuda",
+    "contextTokens": 4096,
+    "prefixCache": false,
+    "paragraphTokens": 768
+  }
+}
